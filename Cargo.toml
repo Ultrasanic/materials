@@ -5,5 +5,8 @@ members = [
     "04-group-comm/seminar/gossip/simulator",
     "homework/01-guarantees/tests",
     "homework/04-broadcast/tests",
-    "homework/06-membership/tests"
+    "homework/06-membership/tests",
+    "08-scaling/seminar/load-balancing-lab",
+    "homework/07-kv-sharding/tests",
+    "homework/08-kv-replication/tests",
 ]

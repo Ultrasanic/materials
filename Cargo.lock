@@ -210,6 +210,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "distsys-kv-replication-2"
+version = "0.1.0"
+dependencies = [
+ "anysystem",
+ "assertables",
+ "byteorder",
+ "clap",
+ "decorum",
+ "env_logger",
+ "log",
+ "md5",
+ "rand",
+ "rand_pcg",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "distsys-kv-sharding"
 version = "0.1.0"
 dependencies = [

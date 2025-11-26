@@ -9,4 +9,5 @@ members = [
     "08-scaling/seminar/load-balancing-lab",
     "homework/07-kv-sharding/tests",
     "homework/08-kv-replication/tests",
+    "homework/09-kv-replication-2/tests",
 ]

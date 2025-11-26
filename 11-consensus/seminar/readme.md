@@ -169,6 +169,7 @@ docker exec -t -i raft1 /bin/bash
 - Фиксация транзакций
 
 Запустить ZooKeeper кластер можно локально с помощью [docker compose](https://dev.to/jv/zookeeper-cluster-with-docker-compose-jml) (см. директорию [zookeeper](./zookeeper/)).
+Наш docker-образ также предоставляет веб-интерфейс zoonavigator, доступный по localhost:9000. В качестве connection string для zoonavigator указывать zk1:2181, zk2:2181 или zk3:2181.
 
 Подробнее про применение ZooKeeper на практике:
 

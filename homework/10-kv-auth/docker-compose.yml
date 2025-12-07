@@ -1,0 +1,38 @@
+name: distsys-security
+services:
+    auth:
+        image: distsys-security-auth
+        build:
+            context: ./solution/auth
+        volumes:
+            - ./solution/auth/private.pem:/tmp/private.pem
+            - ./solution/auth/public.pem:/tmp/public.pem
+        command: ["--private", "/tmp/private.pem", "--public", "/tmp/public.pem", "--port", "8090"]
+        ports:
+            - 8090:8090
+
+    kv:
+        image: distsys-security-kv
+        build: 
+            context: ./solution/kv
+        volumes:
+            - ./solution/auth/public.pem:/tmp/public.pem
+        command: ["--public", "/tmp/public.pem", "--port", "8090"]
+        ports:
+            - 8091:8090
+
+    tests:
+        image: distsys-security-tests
+        build:
+            context: tests
+        environment:
+            KV_SERVER_URL: "http://kv:8090"
+            AUTH_SERVER_URL: "http://auth:8090"
+            JWT_PRIVATE_KEY_FILE: "/tmp/private.pem"
+            JWT_PUBLIC_KEY_FILE: "/tmp/public.pem"
+        volumes:
+            - ./solution/auth/private.pem:/tmp/private.pem
+            - ./solution/auth/public.pem:/tmp/public.pem
+        depends_on:
+            - auth
+            - kv

@@ -2,12 +2,13 @@ mod common;
 mod tests;
 mod tests_mc;
 
-use std::collections::{BTreeMap, HashSet};
+use std::collections::HashSet;
 use std::env;
 use std::io::Write;
 
 use clap::Parser;
 use env_logger::Builder;
+use indexmap::IndexMap;
 use log::LevelFilter;
 
 use anysystem::python::PyProcessFactory;
@@ -113,7 +114,7 @@ macro_rules! string_set {
     );
 }
 
-fn score(results: BTreeMap<String, TestResult>, disable_mc_tests: bool) -> f32 {
+fn score(results: IndexMap<String, TestResult>, disable_mc_tests: bool) -> f32 {
     let basic_group = string_set! {
         "BASIC", "MC EMPTY SYSTEM", "MC BASIC", "STALE REPLICA", "SLOPPY QUORUM", "MC SLOPPY QUORUM HINTED HANDOFF"
     };
@@ -136,7 +137,7 @@ fn score(results: BTreeMap<String, TestResult>, disable_mc_tests: bool) -> f32 {
     let mut all_results = results.clone();
     if disable_mc_tests {
         let result = TestResult::Err("Test in not run".to_string());
-        let mc_results: BTreeMap<String, TestResult> = all_groups
+        let mc_results: IndexMap<String, TestResult> = all_groups
             .iter()
             .filter_map(|t| t.starts_with("MC ").then_some((t.clone(), result.clone())))
             .collect();

@@ -2,12 +2,13 @@ mod common;
 mod tests;
 mod tests_mc;
 
-use std::collections::{BTreeMap, HashSet};
+use std::collections::HashSet;
 use std::env;
 use std::io::Write;
 
 use clap::Parser;
 use env_logger::Builder;
+use indexmap::IndexMap;
 use log::LevelFilter;
 use rand::prelude::*;
 use rand_pcg::Pcg64;
@@ -152,7 +153,7 @@ macro_rules! string_set {
     );
 }
 
-fn score(results: BTreeMap<String, TestResult>, monkeys: u32, disable_mc_tests: bool) -> f32 {
+fn score(results: IndexMap<String, TestResult>, monkeys: u32, disable_mc_tests: bool) -> f32 {
     let basic_group = string_set! {
         "SIMPLE",
         "GET MEMBERS SEMANTICS",

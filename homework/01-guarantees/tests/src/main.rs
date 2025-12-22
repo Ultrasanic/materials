@@ -2,12 +2,13 @@ mod common;
 mod tests;
 mod tests_mc;
 
-use std::collections::{BTreeMap, HashSet};
+use std::collections::HashSet;
 use std::env;
 use std::io::Write;
 
 use clap::Parser;
 use env_logger::Builder;
+use indexmap::IndexMap;
 use log::LevelFilter;
 
 use anysystem::test::{TestResult, TestSuite};
@@ -272,7 +273,7 @@ fn main() {
     }
 }
 
-fn score(results: BTreeMap<String, TestResult>) -> f32 {
+fn score(results: IndexMap<String, TestResult>) -> f32 {
     let guarantees = HashSet::from(["AT MOST ONCE", "AT LEAST ONCE", "EXACTLY ONCE", "EXACTLY ONCE ORDERED"]);
     let mut failed_guarantees: HashSet<&str> = HashSet::new();
     let mut failed_overheads: HashSet<&str> = HashSet::new();

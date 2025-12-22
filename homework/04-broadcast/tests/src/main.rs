@@ -2,12 +2,13 @@ mod common;
 mod tests;
 mod tests_mc;
 
-use std::collections::{BTreeMap, HashSet};
+use std::collections::HashSet;
 use std::env;
 use std::io::Write;
 
 use clap::Parser;
 use env_logger::Builder;
+use indexmap::IndexMap;
 use log::LevelFilter;
 
 use anysystem::python::PyProcessFactory;
@@ -99,7 +100,7 @@ fn main() {
     }
 }
 
-fn score(results: BTreeMap<String, TestResult>) -> f32 {
+fn score(results: IndexMap<String, TestResult>) -> f32 {
     let mut violated = HashSet::new();
     for (_, result) in results {
         if let Err(e) = result {

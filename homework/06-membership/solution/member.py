@@ -5,6 +5,9 @@ class GroupMember(Process):
     def __init__(self, proc_id: str):
         self._id = proc_id
 
+    def on_start(self, ctx: Context):
+        pass
+
     def on_local_message(self, msg: Message, ctx: Context):
         if msg.type == 'JOIN':
             # Add process to the group

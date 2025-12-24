@@ -8,6 +8,9 @@ class AtMostOnceSender(Process):
         self._id = proc_id
         self._receiver = receiver_id
 
+    def on_start(self, ctx: Context):
+        pass
+
     def on_local_message(self, msg: Message, ctx: Context):
         # receive message for delivery from local user
         pass
@@ -24,6 +27,9 @@ class AtMostOnceSender(Process):
 class AtMostOnceReceiver(Process):
     def __init__(self, proc_id: str):
         self._id = proc_id
+
+    def on_start(self, ctx: Context):
+        pass
 
     def on_local_message(self, msg: Message, ctx: Context):
         # not used in this task
@@ -46,6 +52,9 @@ class AtLeastOnceSender(Process):
         self._id = proc_id
         self._receiver = receiver_id
 
+    def on_start(self, ctx: Context):
+        pass
+
     def on_local_message(self, msg: Message, ctx: Context):
         # receive message for delivery from local user
         pass
@@ -62,6 +71,9 @@ class AtLeastOnceSender(Process):
 class AtLeastOnceReceiver(Process):
     def __init__(self, proc_id: str):
         self._id = proc_id
+
+    def on_start(self, ctx: Context):
+        pass
 
     def on_local_message(self, msg: Message, ctx: Context):
         # not used in this task
@@ -84,6 +96,9 @@ class ExactlyOnceSender(Process):
         self._id = proc_id
         self._receiver = receiver_id
 
+    def on_start(self, ctx: Context):
+        pass
+
     def on_local_message(self, msg: Message, ctx: Context):
         # receive message for delivery from local user
         pass
@@ -100,6 +115,9 @@ class ExactlyOnceSender(Process):
 class ExactlyOnceReceiver(Process):
     def __init__(self, proc_id: str):
         self._id = proc_id
+
+    def on_start(self, ctx: Context):
+        pass
 
     def on_local_message(self, msg: Message, ctx: Context):
         # not used in this task
@@ -122,6 +140,9 @@ class ExactlyOnceOrderedSender(Process):
         self._id = proc_id
         self._receiver = receiver_id
 
+    def on_start(self, ctx: Context):
+        pass
+
     def on_local_message(self, msg: Message, ctx: Context):
         # receive message for delivery from local user
         pass
@@ -138,6 +159,9 @@ class ExactlyOnceOrderedSender(Process):
 class ExactlyOnceOrderedReceiver(Process):
     def __init__(self, proc_id: str):
         self._id = proc_id
+
+    def on_start(self, ctx: Context):
+        pass
 
     def on_local_message(self, msg: Message, ctx: Context):
         # not used in this task

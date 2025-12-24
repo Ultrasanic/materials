@@ -7,6 +7,9 @@ class BroadcastProcess(Process):
         self._id = proc_id
         self._processes = processes
 
+    def on_start(self, ctx: Context):
+        pass
+
     def on_local_message(self, msg: Message, ctx: Context):
         if msg.type == 'SEND':
             bcast_msg = Message('BCAST', {

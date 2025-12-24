@@ -9,6 +9,9 @@ class StorageNode(Process):
         self._nodes = nodes
         self._data = {}
 
+    def on_start(self, ctx: Context):
+        pass
+
     def on_local_message(self, msg: Message, ctx: Context):
         # Get key value.
         # Request:

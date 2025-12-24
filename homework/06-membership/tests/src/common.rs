@@ -39,5 +39,8 @@ pub fn build_system(config: &TestConfig) -> System {
         let process = config.process_factory.build((&name,), config.seed);
         sys.add_process(&name, boxed!(process), &name);
     }
+
+    sys.start_processes();
+
     sys
 }

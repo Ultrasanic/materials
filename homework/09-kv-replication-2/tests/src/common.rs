@@ -63,6 +63,9 @@ pub fn build_system(config: &TestConfig) -> System {
         let clock_skew = sys.gen_range(0.0..10.0);
         sys.set_node_clock_skew(&node_name, clock_skew);
     }
+
+    sys.start_processes();
+
     sys
 }
 

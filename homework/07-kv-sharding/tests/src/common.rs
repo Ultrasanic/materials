@@ -89,6 +89,9 @@ pub fn build_system(config: &TestConfig, measure_max_size: bool) -> System {
         sys.add_node(&node_name);
         sys.add_process(&proc_name, boxed!(proc), &node_name);
     }
+
+    sys.start_processes();
+
     sys
 }
 

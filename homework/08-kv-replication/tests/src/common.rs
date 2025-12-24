@@ -68,6 +68,9 @@ pub fn build_system(config: &TestConfig) -> System {
         sys.add_node(&node_name);
         sys.add_process(proc_name, Box::new(proc), &node_name);
     }
+
+    sys.start_processes();
+
     sys
 }
 

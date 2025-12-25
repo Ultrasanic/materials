@@ -5,6 +5,9 @@ class PingClient(Process):
     def __init__(self, proc_id: str, server_id: str):
         self._id = proc_id
         self._server_id = server_id
+    
+    def on_start(self, ctx: Context):
+        pass
 
     def on_local_message(self, msg: Message, ctx: Context):
         # process messages from the local user
@@ -24,6 +27,9 @@ class PingClient(Process):
 class PingServer(Process):
     def __init__(self, proc_id: str):
         self._id = proc_id
+
+    def on_start(self, ctx: Context):
+        pass
 
     def on_local_message(self, msg: Message, ctx: Context):
         # process messages from the local user (not used in this example)

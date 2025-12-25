@@ -2,13 +2,12 @@ mod common;
 mod tests;
 mod tests_mc;
 
-use std::collections::HashSet;
 use std::env;
 use std::io::Write;
 
 use clap::Parser;
 use env_logger::Builder;
-use indexmap::IndexMap;
+use indexmap::{IndexMap, IndexSet};
 use log::LevelFilter;
 
 use anysystem::python::PyProcessFactory;
@@ -109,7 +108,7 @@ fn main() {
 
 macro_rules! string_set {
     ($($x:expr),+ $(,)?) => (
-        HashSet::from([$($x.to_string()),+])
+        IndexSet::from([$($x.to_string()),+])
     );
 }
 
@@ -125,9 +124,9 @@ fn score(results: IndexMap<String, TestResult>) -> f32 {
         "DISTRIBUTION", "DISTRIBUTION NODE ADDED", "DISTRIBUTION NODE REMOVED"
     };
     let all_groups = &(&basic_group | &node_changes_group) | &distribution_group;
-    assert_eq!(all_groups, results.keys().cloned().collect());
+    assert_eq!(all_groups, results.keys().cloned().collect::<IndexSet<String>>());
 
-    let mut passed = HashSet::new();
+    let mut passed = IndexSet::new();
     for (test, result) in results {
         if result.is_ok() {
             passed.insert(test);

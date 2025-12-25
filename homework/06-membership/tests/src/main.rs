@@ -2,13 +2,12 @@ mod common;
 mod tests;
 mod tests_mc;
 
-use std::collections::HashSet;
 use std::env;
 use std::io::Write;
 
 use clap::Parser;
 use env_logger::Builder;
-use indexmap::IndexMap;
+use indexmap::{IndexMap, IndexSet};
 use log::LevelFilter;
 use rand::prelude::*;
 use rand_pcg::Pcg64;
@@ -149,7 +148,7 @@ fn main() {
 
 macro_rules! string_set {
     ($($x:expr),+ $(,)?) => (
-        HashSet::from([$($x.to_string()),+])
+        IndexSet::from([$($x.to_string()),+])
     );
 }
 
@@ -189,11 +188,11 @@ fn score(results: IndexMap<String, TestResult>, monkeys: u32, disable_mc_tests: 
     let mut all_groups =
         &(&(&basic_group | &process_crash_group) | &network_failure_group) | &scalability_group;
     if disable_mc_tests {
-        all_groups.remove("MODEL CHECKING");
+        all_groups.shift_remove("MODEL CHECKING");
     }
-    assert_eq!(all_groups, results.keys().cloned().collect());
+    assert_eq!(all_groups, results.keys().cloned().collect::<IndexSet<String>>());
 
-    let mut passed = HashSet::new();
+    let mut passed = IndexSet::new();
     let mut model_checking_ok = false;
     for (test, result) in results {
         match result {
@@ -217,8 +216,7 @@ fn score(results: IndexMap<String, TestResult>, monkeys: u32, disable_mc_tests: 
         score += 4.;
         println!("passed");
     } else {
-        let mut failed: Vec<&String> = basic_group.difference(&passed).collect();
-        failed.sort();
+        let failed: Vec<&String> = basic_group.difference(&passed).collect();
         println!("not passed {failed:?}");
     }
     print!("Process crashes tests: ");
@@ -226,8 +224,7 @@ fn score(results: IndexMap<String, TestResult>, monkeys: u32, disable_mc_tests: 
         score += 3.;
         println!("passed");
     } else {
-        let mut failed: Vec<&String> = process_crash_group.difference(&passed).collect();
-        failed.sort();
+        let failed: Vec<&String> = process_crash_group.difference(&passed).collect();
         println!("not passed {failed:?}");
     }
     print!("Network failures tests: ");
@@ -235,8 +232,7 @@ fn score(results: IndexMap<String, TestResult>, monkeys: u32, disable_mc_tests: 
         score += 3.;
         println!("passed");
     } else {
-        let mut failed: Vec<&String> = network_failure_group.difference(&passed).collect();
-        failed.sort();
+        let failed: Vec<&String> = network_failure_group.difference(&passed).collect();
         println!("not passed {failed:?}");
     }
     print!("Scalability tests: ");
@@ -244,8 +240,7 @@ fn score(results: IndexMap<String, TestResult>, monkeys: u32, disable_mc_tests: 
         score += 4.;
         println!("passed");
     } else {
-        let mut failed: Vec<&String> = scalability_group.difference(&passed).collect();
-        failed.sort();
+        let failed: Vec<&String> = scalability_group.difference(&passed).collect();
         println!("not passed {failed:?}");
     }
     print!("Model checking test: ");

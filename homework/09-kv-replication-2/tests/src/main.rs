@@ -2,13 +2,12 @@ mod common;
 mod tests;
 mod tests_mc;
 
-use std::collections::HashSet;
 use std::env;
 use std::io::Write;
 
 use clap::Parser;
 use env_logger::Builder;
-use indexmap::IndexMap;
+use indexmap::{IndexMap, IndexSet};
 use log::LevelFilter;
 
 use anysystem::python::PyProcessFactory;
@@ -110,7 +109,7 @@ fn main() {
 
 macro_rules! string_set {
     ($($x:expr),+ $(,)?) => (
-        HashSet::from([$($x.to_string()),+])
+        IndexSet::from([$($x.to_string()),+])
     );
 }
 
@@ -144,9 +143,9 @@ fn score(results: IndexMap<String, TestResult>, disable_mc_tests: bool) -> f32 {
         all_results.extend(mc_results);
     }
 
-    assert_eq!(all_groups, all_results.keys().cloned().collect());
+    assert_eq!(all_groups, all_results.keys().cloned().collect::<IndexSet<String>>());
 
-    let mut passed = HashSet::new();
+    let mut passed = IndexSet::new();
     for (test, result) in all_results {
         if result.is_ok() {
             passed.insert(test);

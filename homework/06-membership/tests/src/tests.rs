@@ -548,7 +548,6 @@ fn recover_process(name: &str, sys: &mut System, config: &TestConfig) {
     sys.recover_node(name);
     let process = config.process_factory.build((name,), config.seed);
     sys.add_process(name, boxed!(process), name);
-    sys.start_process(name);
 }
 
 fn step_until_stabilized(sys: &mut System, group: HashSet<String>) -> TestResult {

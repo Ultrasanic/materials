@@ -38,8 +38,6 @@ pub fn build_system(config: &TestConfig, measure_max_size: bool) -> System {
     }
     sys.add_process("receiver", boxed!(receiver), "receiver-node");
 
-    sys.start_processes();
-
     sys
 }
 

@@ -32,8 +32,5 @@ pub fn build_system(config: &TestConfig) -> System {
         sys.add_node(proc_name);
         sys.add_process(proc_name, boxed!(proc), proc_name);
     }
-
-    sys.start_processes();
-
     sys
 }

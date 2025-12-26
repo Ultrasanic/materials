@@ -22,8 +22,6 @@ pub fn build_system(config: &TestConfig) -> System {
     sys.add_process("server", boxed!(server), "server-node");
     sys.add_process("client", boxed!(client), "client-node");
 
-    sys.start_processes();
-
     sys
 }
 
